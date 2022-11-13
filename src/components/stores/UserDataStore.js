@@ -1,8 +1,8 @@
 import {action, makeObservable, observable} from 'mobx';
 
 export default class UserDataStore {
-    username = null;
-    password = null;
+    username = window.sessionStorage.getItem('username');
+    password = window.sessionStorage.getItem('password');
 
     constructor() {
         makeObservable(this, {
@@ -15,9 +15,11 @@ export default class UserDataStore {
 
     setUsername(username) {
         this.username = username;
+        window.sessionStorage.setItem('username', username);
     }
 
     setPassword(password) {
         this.password = password;
+        window.sessionStorage.setItem('password', password)
     }
 }
