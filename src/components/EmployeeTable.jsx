@@ -32,7 +32,8 @@ function EmployeeTable() {
     return(
         <table className="table table-bordered">
             <thead>
-            <tr><th>Имя</th>
+            <tr>
+                <th>Имя</th>
                 <th>Фамилия</th>
                 <th>Код департамента</th>
                 <th>Специальность</th>

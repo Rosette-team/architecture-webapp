@@ -14,7 +14,7 @@ function LoginRoute() {
     function handleSubmit(event) {
         userDataStore.setUsername(username)
         userDataStore.setPassword(password)
-        navigate('/users')
+        navigate('/employee')
         event.preventDefault();
     }
 

@@ -3,6 +3,8 @@ import LoginRoute from "./components/routes/LoginRoute";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import {observer} from "mobx-react";
 import EmployeeManagementRoute from "./components/routes/EmployeeManagementRoute";
+import DepartmentManagementRoute from "./components/routes/DepartmentManagementRoute";
+import DepartmentEditRoute from "./components/routes/DepartmentEditRoute";
 
 function App() {
   return (
@@ -10,7 +12,9 @@ function App() {
       <BrowserRouter>
         <Routes>
             <Route path="/login" element={<LoginRoute/>}/>
-            <Route path="/users" element={<ProtectedRoute><EmployeeManagementRoute/></ProtectedRoute>}/>
+            <Route path="/employee" element={<ProtectedRoute><EmployeeManagementRoute/></ProtectedRoute>}/>
+            <Route path="/department" element={<ProtectedRoute><DepartmentManagementRoute/></ProtectedRoute>}/>
+            <Route path="/department/:id" element={<ProtectedRoute><DepartmentEditRoute/></ProtectedRoute>}/>
             <Route path="*" element={<Navigate to={"/login"}/>}/>
         </Routes>
       </BrowserRouter>
