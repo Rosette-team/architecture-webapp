@@ -4,7 +4,7 @@ import {provideRequest} from "../../api/ApiController";
 import {useNavigate, useParams} from "react-router";
 
 function DepartmentEditRoute(props) {
-    const [department, setDepartment] = useState([]);
+    const [department, setDepartment] = useState({});
     const [name, setName] = useState('');
 
     const navigate = useNavigate();
@@ -22,7 +22,7 @@ function DepartmentEditRoute(props) {
         provideRequest('http://localhost:8080/department/' + id, 'PUT', {
             'id': null,
             'name': name
-        }).then(e => console.log())
+        }).then()
         event.preventDefault();
         navigate('/department')
     }

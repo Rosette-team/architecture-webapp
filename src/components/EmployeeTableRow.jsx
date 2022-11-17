@@ -1,6 +1,17 @@
 import {observer} from "mobx-react";
+import {useNavigate} from "react-router";
 
 function EmployeeTableRow(props) {
+    let navigate = useNavigate()
+
+    function onEdit() {
+        if (props.employee.role == 'ROLE_DOCTOR') {
+            navigate('/employee/' + props.employee.id + '?employeeType=doctor')
+        } else {
+            navigate('/employee/' + props.employee.id + '?employeeType=manager')
+        }
+    }
+
     return(
         <tr>
             <td>{props.employee.name}</td>
@@ -8,7 +19,7 @@ function EmployeeTableRow(props) {
             <td>{props.employee.departmentId}</td>
             <td>{props.employee.speciality}</td>
             <td>
-                <button type="button" className="btn btn-success">
+                <button type="button" className="btn btn-success" onClick={onEdit}>
                     <i className="bi bi-pencil-square"/> Данные
                 </button>
                 <button type="button" className="btn btn-warning">
