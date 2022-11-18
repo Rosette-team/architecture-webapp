@@ -1,26 +1,17 @@
 import {observer} from "mobx-react";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import EmployeeTableRow from "./EmployeeTableRow";
+import {UserDataStoreContext} from "../index";
+import DoctorApi from "../backend/api/DoctorApi";
 
 function EmployeeTable() {
     const [employees, setEmployees] = useState([
     ]);
 
+    let doctorApi = new DoctorApi(React.useContext(UserDataStoreContext))
+
     useEffect(() => {
-        let headers = new Headers()
-        headers.append('Authorization', 'Basic ' + btoa('user:user'));
-        fetch('http://127.0.0.1:8080/doctor',
-            {
-                method: 'GET',
-                headers: headers
-            })
-            .then((response) => {
-                response.json().then(
-                    (value) => {
-                        setEmployees(value)
-                    }
-                )
-            })
+        doctorApi.getDoctors().then(value => setEmployees(value))
     }, []);
 
     let rows = []

@@ -1,7 +1,8 @@
 import {observer} from "mobx-react";
 import React, {useEffect, useState} from "react";
-import {provideRequest} from "../../api/ApiController";
 import {useNavigate, useParams} from "react-router";
+import {UserDataStoreContext} from "../../index";
+import DepartmentApi from "../../backend/api/DepartmentApi";
 
 function DepartmentEditRoute(props) {
     const [department, setDepartment] = useState({});
@@ -10,8 +11,10 @@ function DepartmentEditRoute(props) {
     const navigate = useNavigate();
     const {id} = useParams()
 
+    let departmentApi = new DepartmentApi(React.useContext(UserDataStoreContext))
+
     useEffect(() => {
-        provideRequest('http://localhost:8080/department/' + id).then(
+        departmentApi.getDepartment(id).then(
             (value) => {
                 setDepartment(value)
             }
@@ -19,10 +22,10 @@ function DepartmentEditRoute(props) {
     }, []);
 
     function handleSubmit(event) {
-        provideRequest('http://localhost:8080/department/' + id, 'PUT', {
+        departmentApi.updateDepartment(id, {
             'id': null,
             'name': name
-        }).then()
+        })
         event.preventDefault();
         navigate('/department')
     }

@@ -1,8 +1,10 @@
 import {observer} from "mobx-react";
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router";
-import {provideRequest} from "../../api/ApiController";
 import {useSearchParams} from "react-router-dom";
+import DoctorApi from "../../backend/api/DoctorApi";
+import {UserDataStoreContext} from "../../index";
+import DepartmentApi from "../../backend/api/DepartmentApi";
 
 function EmployeeEditRoute(props) {
     const [employee, setEmployee] = useState({});
@@ -17,8 +19,11 @@ function EmployeeEditRoute(props) {
     const navigate = useNavigate();
     const {id} = useParams()
 
+    let doctorApi = new DoctorApi(React.useContext(UserDataStoreContext))
+    let departmentApi = new DepartmentApi(React.useContext(UserDataStoreContext))
+
     useEffect(() => {
-        provideRequest('http://localhost:8080/' + searchParams.get('employeeType') + '/' + id).then(
+        doctorApi.getDoctor(id).then(
             (value) => {
                 setEmployee(value)
                 setName(value.name)
@@ -26,7 +31,7 @@ function EmployeeEditRoute(props) {
                 setSpeciality(value.speciality)
             }
         )
-        provideRequest('http://localhost:8080/department').then(
+        departmentApi.getDepartments().then(
             (value) => {
                 setDepartments(value)
             }
@@ -35,18 +40,18 @@ function EmployeeEditRoute(props) {
 
     function handleSubmit(event) {
         if (departmentId != 0) {
-            provideRequest('http://localhost:8080/' + searchParams.get('employeeType') + '/' + id, 'PUT', {
+            doctorApi.updateDoctor(id, {
                 'name': name,
                 'surname': surname,
                 'speciality': speciality,
                 'departmentId': departmentId
-            }).then()
+            })
         } else {
-            provideRequest('http://localhost:8080/' + searchParams.get('employeeType') + '/' + id, 'PUT', {
+            doctorApi.updateDoctor(id, {
                 'name': name,
                 'surname': surname,
                 'speciality': speciality,
-            }).then()
+            })
         }
         event.preventDefault();
         navigate('/employee')

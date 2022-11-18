@@ -1,13 +1,16 @@
 import {observer} from "mobx-react";
-import {useEffect, useState} from "react";
-import {provideRequest} from "../api/ApiController";
+import React, {useEffect, useState} from "react";
 import DepartmentTableRow from "./DepartmentTableRow";
+import {UserDataStoreContext} from "../index";
+import DepartmentApi from "../backend/api/DepartmentApi";
 
 function DepartmentTable() {
     const [departments, setDepartments] = useState([]);
 
+    let departmentApi = new DepartmentApi(React.useContext(UserDataStoreContext))
+
     useEffect(() => {
-        provideRequest('http://localhost:8080/department').then(
+        departmentApi.getDepartments().then(
             (value) => {
                 setDepartments(value)
             }
