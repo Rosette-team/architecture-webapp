@@ -11,6 +11,7 @@ function EmployeeCreationRoute(props) {
     const [departments, setDepartments] = useState([]);
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
+    const [role, setRole] = useState('');
     const [speciality, setSpeciality] = useState('');
     const [departmentId, setDepartmentId] = useState('');
     const [username, setUsername] = useState('');
@@ -68,7 +69,7 @@ function EmployeeCreationRoute(props) {
     }
 
     let specialityComponent = null
-    if (searchParams.get('employeeType') == 'doctor') {
+    if (role == 'doctor') {
         specialityComponent = <div className="form-group row">
             <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Специальность</label>
             <div className="col-sm-10">
@@ -104,6 +105,15 @@ function EmployeeCreationRoute(props) {
                 <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Фамилия</label>
                 <div className="col-sm-10">
                     <input className="form-control" id="surname" onChange={e => setSurname(e.target.value)} defaultValue={employee.surname}/>
+                </div>
+            </div>
+            <div className="form-group row">
+                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Роль</label>
+                <div className="col-sm-10">
+                    <select className="form-select" aria-label="Default select example" onChange={e => setRole(e.target.value)}>
+                        <option value="doctor" key={0}>Доктор</option>
+                        <option value="manager" key={0}>Менеджер</option>
+                    </select>
                 </div>
             </div>
             {specialityComponent}

@@ -5,6 +5,7 @@ import {useSearchParams} from "react-router-dom";
 import DoctorApi from "../../backend/api/DoctorApi";
 import {UserDataStoreContext} from "../../index";
 import DepartmentApi from "../../backend/api/DepartmentApi";
+import ManagerApi from "../../backend/api/ManagerApi";
 
 function EmployeeEditRoute(props) {
     const [employee, setEmployee] = useState({});
@@ -20,17 +21,29 @@ function EmployeeEditRoute(props) {
     const {id} = useParams()
 
     let doctorApi = new DoctorApi(React.useContext(UserDataStoreContext))
+    let managerApi = new ManagerApi(React.useContext(UserDataStoreContext))
     let departmentApi = new DepartmentApi(React.useContext(UserDataStoreContext))
 
     useEffect(() => {
-        doctorApi.getDoctor(id).then(
-            (value) => {
-                setEmployee(value)
-                setName(value.name)
-                setSurname(value.surname)
-                setSpeciality(value.speciality)
-            }
-        )
+        if (searchParams.get('role') == 'doctor') {
+            doctorApi.getDoctor(id).then(
+                (value) => {
+                    setEmployee(value)
+                    setName(value.name)
+                    setSurname(value.surname)
+                    setSpeciality(value.speciality)
+                }
+            )
+        } else {
+            managerApi.getManager(id).then(
+                (value) => {
+                    setEmployee(value)
+                    setName(value.name)
+                    setSurname(value.surname)
+                    setSpeciality(value.speciality)
+                }
+            )
+        }
         departmentApi.getDepartments().then(
             (value) => {
                 setDepartments(value)
@@ -39,19 +52,26 @@ function EmployeeEditRoute(props) {
     }, []);
 
     function handleSubmit(event) {
+        let body = {}
         if (departmentId != 0) {
-            doctorApi.updateDoctor(id, {
+            body = {
                 'name': name,
                 'surname': surname,
                 'speciality': speciality,
                 'departmentId': departmentId
-            })
+            }
         } else {
-            doctorApi.updateDoctor(id, {
+            body = {
                 'name': name,
                 'surname': surname,
                 'speciality': speciality,
-            })
+                'departmentId': departmentId
+            }
+        }
+        if (searchParams.get('role') == 'doctor') {
+            doctorApi.updateDoctor(id, body);
+        } else {
+            managerApi.updateManager(id, body);
         }
         event.preventDefault();
         navigate('/employee')
@@ -62,7 +82,7 @@ function EmployeeEditRoute(props) {
     }
 
     let specialityComponent = null
-    if (searchParams.get('employeeType') == 'doctor') {
+    if (searchParams.get('role') == 'doctor') {
         specialityComponent = <div className="form-group row">
             <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Специальность</label>
             <div className="col-sm-10">

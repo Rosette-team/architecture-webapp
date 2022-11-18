@@ -1,6 +1,5 @@
 import {observer} from "mobx-react";
 import {useNavigate} from "react-router";
-import DepartmentApi from "../backend/api/DepartmentApi";
 import React from "react";
 import {UserDataStoreContext} from "../index";
 import DoctorApi from "../backend/api/DoctorApi";
@@ -12,9 +11,9 @@ function EmployeeTableRow(props) {
 
     function onEdit() {
         if (props.employee.role == 'ROLE_DOCTOR') {
-            navigate('/employee/' + props.employee.id + '?employeeType=doctor')
+            navigate('/employee/' + props.employee.id + '?role=doctor')
         } else {
-            navigate('/employee/' + props.employee.id + '?employeeType=manager')
+            navigate('/employee/' + props.employee.id + '?role=manager')
         }
     }
 
@@ -22,12 +21,17 @@ function EmployeeTableRow(props) {
         doctorApi.deleteDoctor(props.employee.id)
     }
 
+    let speciality = props.employee.speciality
+    if (props.employee.role == 'ROLE_MANAGER') {
+        speciality = 'Менеджер'
+    }
+
     return(
         <tr>
             <td>{props.employee.name}</td>
             <td>{props.employee.surname}</td>
             <td>{props.employee.departmentId}</td>
-            <td>{props.employee.speciality}</td>
+            <td>{speciality}</td>
             <td>
                 <button type="button" className="btn btn-success" onClick={onEdit}>
                     <i className="bi bi-pencil-square"/> Данные

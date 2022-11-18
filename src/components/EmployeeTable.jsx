@@ -3,15 +3,24 @@ import React, {useEffect, useState} from "react";
 import EmployeeTableRow from "./EmployeeTableRow";
 import {UserDataStoreContext} from "../index";
 import DoctorApi from "../backend/api/DoctorApi";
+import ManagerApi from "../backend/api/ManagerApi";
 
 function EmployeeTable() {
     const [employees, setEmployees] = useState([
     ]);
 
     let doctorApi = new DoctorApi(React.useContext(UserDataStoreContext))
+    let managerApi = new ManagerApi(React.useContext(UserDataStoreContext))
 
     useEffect(() => {
-        doctorApi.getDoctors().then(value => setEmployees(value))
+        doctorApi.getDoctors().then(
+            (doctors) =>
+            {
+                managerApi.getManagers().then(
+                    (managers) => {
+                        setEmployees(doctors.concat(managers))
+                    })
+            })
     }, []);
 
     let rows = []

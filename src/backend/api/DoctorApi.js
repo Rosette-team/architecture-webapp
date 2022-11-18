@@ -13,8 +13,8 @@ export default class DoctorApi extends ApiClient {
         return await this.provideRequest(`http://localhost:8080/doctor`)
     }
 
-    createDoctor(department) {
-        this.provideRequest(`http://localhost:8080/doctor`, 'POST', department).then()
+    createDoctor(doctor) {
+        this.provideRequest(`http://localhost:8080/doctor`, 'POST', doctor).then()
     }
 
     updateDoctor(id, doctor) {
