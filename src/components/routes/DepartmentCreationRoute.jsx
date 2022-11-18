@@ -4,7 +4,7 @@ import {useNavigate, useParams} from "react-router";
 import {UserDataStoreContext} from "../../index";
 import DepartmentApi from "../../backend/api/DepartmentApi";
 
-function DepartmentEditRoute(props) {
+function DepartmentCreationRoute(props) {
     const [department, setDepartment] = useState({});
     const [name, setName] = useState('');
 
@@ -13,17 +13,8 @@ function DepartmentEditRoute(props) {
 
     let departmentApi = new DepartmentApi(React.useContext(UserDataStoreContext))
 
-    useEffect(() => {
-        departmentApi.getDepartment(id).then(
-            (value) => {
-                setDepartment(value)
-            }
-        )
-    }, []);
-
     function handleSubmit(event) {
-        departmentApi.updateDepartment(id, {
-            'id': null,
+        departmentApi.createDepartment({
             'name': name
         })
         event.preventDefault();
@@ -39,7 +30,7 @@ function DepartmentEditRoute(props) {
             <div className="form-group row">
                 <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Название</label>
                 <div className="col-sm-10">
-                    <input className="form-control" id="name" onChange={e => setName(e.target.value)} defaultValue={department.name}/>
+                    <input className="form-control" id="name" onChange={e => setName(e.target.value)}/>
                 </div>
             </div>
             <button className="btn btn-primary" type="submit" >Сохранить</button>
@@ -48,4 +39,4 @@ function DepartmentEditRoute(props) {
     )
 }
 
-export default observer(DepartmentEditRoute);
+export default observer(DepartmentCreationRoute);

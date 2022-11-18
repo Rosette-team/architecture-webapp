@@ -1,8 +1,14 @@
 import {observer} from "mobx-react";
 import {useNavigate} from "react-router";
+import DepartmentApi from "../backend/api/DepartmentApi";
+import React from "react";
+import {UserDataStoreContext} from "../index";
+import DoctorApi from "../backend/api/DoctorApi";
 
 function EmployeeTableRow(props) {
     let navigate = useNavigate()
+
+    let doctorApi = new DoctorApi(React.useContext(UserDataStoreContext))
 
     function onEdit() {
         if (props.employee.role == 'ROLE_DOCTOR') {
@@ -10,6 +16,10 @@ function EmployeeTableRow(props) {
         } else {
             navigate('/employee/' + props.employee.id + '?employeeType=manager')
         }
+    }
+
+    function onDelete() {
+        doctorApi.deleteDoctor(props.employee.id)
     }
 
     return(
@@ -25,7 +35,7 @@ function EmployeeTableRow(props) {
                 <button type="button" className="btn btn-warning">
                     <i className="bi bi-calendar4-week"/> Расписание
                 </button>
-                <button type="button" className="btn btn-danger">
+                <button type="button" className="btn btn-danger" onClick={onDelete}>
                     <i className="bi bi-x-square"/> Удалить
                 </button>
             </td>

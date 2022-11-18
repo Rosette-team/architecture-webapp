@@ -13,8 +13,16 @@ export default class DepartmentApi extends ApiClient {
         return await this.provideRequest(`http://localhost:8080/department`)
     }
 
+    createDepartment(department) {
+        this.provideRequest(`http://localhost:8080/department`, 'POST', department).then()
+    }
+
     updateDepartment(id, department) {
         this.provideRequest(`http://localhost:8080/department/${id}`, 'PUT', department).then()
+    }
+
+    deleteDepartment(id) {
+        this.provideRequest(`http://localhost:8080/department/${id}`, 'DELETE').then()
     }
 
 }
