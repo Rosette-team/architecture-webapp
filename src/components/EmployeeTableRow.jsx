@@ -17,6 +17,10 @@ function EmployeeTableRow(props) {
         }
     }
 
+    function onSchedule() {
+        navigate('/employee/' + props.employee.id + '/schedule')
+    }
+
     function onDelete() {
         doctorApi.deleteDoctor(props.employee.id)
     }
@@ -36,7 +40,7 @@ function EmployeeTableRow(props) {
                 <button type="button" className="btn btn-success" onClick={onEdit}>
                     <i className="bi bi-pencil-square"/> Данные
                 </button>
-                <button type="button" className="btn btn-warning">
+                <button type="button" className="btn btn-warning" onClick={onSchedule}>
                     <i className="bi bi-calendar4-week"/> Расписание
                 </button>
                 <button type="button" className="btn btn-danger" onClick={onDelete}>

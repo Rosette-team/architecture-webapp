@@ -6,8 +6,7 @@ import DoctorApi from "../backend/api/DoctorApi";
 import ManagerApi from "../backend/api/ManagerApi";
 
 function EmployeeTable() {
-    const [employees, setEmployees] = useState([
-    ]);
+    const [employees, setEmployees] = useState([]);
 
     let doctorApi = new DoctorApi(React.useContext(UserDataStoreContext))
     let managerApi = new ManagerApi(React.useContext(UserDataStoreContext))
