@@ -9,6 +9,7 @@ import EmployeeEditRoute from "./components/routes/EmployeeEditRoute";
 import DepartmentCreationRoute from "./components/routes/DepartmentCreationRoute";
 import EmployeeCreationRoute from "./components/routes/EmployeeCreationRoute";
 import ScheduleEditRoute from "./components/routes/ScheduleEditRoute";
+import WorkingWindowEditRoute from "./components/routes/WorkingWindowEditRoute";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/employee/new" element={<ProtectedRoute><EmployeeCreationRoute/></ProtectedRoute>}/>
             <Route path="/employee/:id" element={<ProtectedRoute><EmployeeEditRoute/></ProtectedRoute>}/>
             <Route path="/employee/:doctorId/schedule" element={<ProtectedRoute><ScheduleEditRoute/></ProtectedRoute>}/>
+            <Route path="/employee/:doctorId/schedule/:workingWindowId" element={<ProtectedRoute><WorkingWindowEditRoute/></ProtectedRoute>}/>
             <Route path="/department" element={<ProtectedRoute><DepartmentManagementRoute/></ProtectedRoute>}/>
             <Route path="/department/new" element={<ProtectedRoute><DepartmentCreationRoute/></ProtectedRoute>}/>
             <Route path="/department/:id" element={<ProtectedRoute><DepartmentEditRoute/></ProtectedRoute>}/>
