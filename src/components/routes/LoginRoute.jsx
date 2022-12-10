@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {UserDataStoreContext} from "../../index";
 import {observer} from "mobx-react";
 import './LoginRoute.css'
@@ -14,6 +14,12 @@ function LoginRoute() {
     const [password, setPassword] = useState('');
 
     const [isWrongCredentials, setIsWrongCredentials] = useState(false);
+
+    useEffect(() => {
+        if (userDataStore.username != null) {
+            navigate('/employee')
+        }
+    }, []);
 
     function handleSubmit(event) {
         userDataStore.setUsername(username)
