@@ -1,6 +1,6 @@
 import {observer} from "mobx-react";
 
-function FormRow(props) {
+function FormGroup(props) {
     return(
         <div className="form-group row">
             <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">{props.label}</label>
@@ -11,4 +11,4 @@ function FormRow(props) {
     )
 }
 
-export default observer(FormRow);
+export default observer(FormGroup);

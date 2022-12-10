@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router";
 import {UserDataStoreContext} from "../../index";
 import DepartmentApi from "../../backend/api/DepartmentApi";
+import FormRow from "../FormGroup";
 
 function DepartmentCreationRoute(props) {
     const [department, setDepartment] = useState({});
@@ -27,12 +28,9 @@ function DepartmentCreationRoute(props) {
 
     return(
         <form onSubmit={handleSubmit}>
-            <div className="form-group row">
-                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Название</label>
-                <div className="col-sm-10">
-                    <input className="form-control" id="name" onChange={e => setName(e.target.value)}/>
-                </div>
-            </div>
+            <FormRow label="Название">
+                <input className="form-control" id="name" onChange={e => setName(e.target.value)}/>
+            </FormRow>
             <button className="btn btn-primary" type="submit" >Сохранить</button>
             <button className="btn btn-danger" onClick={onCancel}>Отменить</button>
         </form>

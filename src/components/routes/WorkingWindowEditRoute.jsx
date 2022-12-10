@@ -1,5 +1,5 @@
 import {observer} from "mobx-react";
-import FormRow from "../FormRow";
+import FormRow from "../FormGroup";
 import React, {useEffect, useState} from "react";
 import WorkingWindowApi from "../../backend/api/WorkingWindowApi";
 import {UserDataStoreContext} from "../../index";

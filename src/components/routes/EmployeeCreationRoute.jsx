@@ -1,23 +1,21 @@
 import {observer} from "mobx-react";
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router";
-import {useSearchParams} from "react-router-dom";
 import DoctorApi from "../../backend/api/DoctorApi";
 import {UserDataStoreContext} from "../../index";
 import DepartmentApi from "../../backend/api/DepartmentApi";
+import FormGroup from "../FormGroup";
 
 function EmployeeCreationRoute(props) {
     const [employee, setEmployee] = useState({});
     const [departments, setDepartments] = useState([]);
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
-    const [role, setRole] = useState('');
+    const [role, setRole] = useState('doctor');
     const [speciality, setSpeciality] = useState('');
     const [departmentId, setDepartmentId] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
-    const [searchParams, setSearchParams] = useSearchParams();
 
     const navigate = useNavigate();
     const {id} = useParams()
@@ -70,12 +68,9 @@ function EmployeeCreationRoute(props) {
 
     let specialityComponent = null
     if (role == 'doctor') {
-        specialityComponent = <div className="form-group row">
-            <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Специальность</label>
-            <div className="col-sm-10">
-                <input className="form-control" id="surname" onChange={e => setSpeciality(e.target.value)} defaultValue={employee.speciality}/>
-            </div>
-        </div>
+        specialityComponent = <FormGroup label="Специальность">
+            <input className="form-control" id="surname" onChange={e => setSpeciality(e.target.value)} defaultValue={employee.speciality}/>
+        </FormGroup>
     }
 
     let departmentComponents = [
@@ -95,49 +90,30 @@ function EmployeeCreationRoute(props) {
 
     return(
         <form onSubmit={handleSubmit}>
-            <div className="form-group row">
-                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Имя</label>
-                <div className="col-sm-10">
-                    <input className="form-control" id="name" onChange={e => setName(e.target.value)} defaultValue={employee.name}/>
-                </div>
-            </div>
-            <div className="form-group row">
-                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Фамилия</label>
-                <div className="col-sm-10">
-                    <input className="form-control" id="surname" onChange={e => setSurname(e.target.value)} defaultValue={employee.surname}/>
-                </div>
-            </div>
-            <div className="form-group row">
-                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Роль</label>
-                <div className="col-sm-10">
-                    <select className="form-select" aria-label="Default select example" onChange={e => setRole(e.target.value)}>
-                        <option value="doctor" key={0}>Доктор</option>
-                        <option value="manager" key={0}>Менеджер</option>
-                    </select>
-                </div>
-            </div>
+            <FormGroup label="Имя">
+                <input className="form-control" id="name" onChange={e => setName(e.target.value)} defaultValue={employee.name}/>
+            </FormGroup>
+            <FormGroup label="Фамилия">
+                <input className="form-control" id="surname" onChange={e => setSurname(e.target.value)} defaultValue={employee.surname}/>
+            </FormGroup>
+            <FormGroup label="Роль">
+                <select className="form-select" aria-label="Default select example" onChange={e => setRole(e.target.value)}>
+                    <option value="doctor" key={0}>Доктор</option>
+                    <option value="manager" key={0}>Менеджер</option>
+                </select>
+            </FormGroup>
+            <FormGroup label="Отделение">
+                <select className="form-select" aria-label="Default select example" onChange={e => setDepartmentId(e.target.value)}>
+                    {departmentComponents}
+                </select>
+            </FormGroup>
             {specialityComponent}
-            <div className="form-group row">
-                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Отделение</label>
-                <div className="col-sm-10">
-                    <select className="form-select" aria-label="Default select example" onChange={e => setDepartmentId(e.target.value)}>
-                        {departmentComponents}
-                    </select>
-                </div>
-            </div>
-            <div className="form-group row">
-                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Имя пользователя</label>
-                <div className="col-sm-10">
-                    <input className="form-control" id="username" type="username" onChange={e => setUsername(e.target.value)} defaultValue={employee.surname}/>
-                </div>
-            </div>
-            <div className="form-group row">
-                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Пароль</label>
-                <div className="col-sm-10">
-                    <input className="form-control" id="password" type="password" onChange={e => setPassword(e.target.value)} defaultValue={employee.surname}/>
-                </div>
-            </div>
-
+            <FormGroup label="Имя пользователя">
+                <input className="form-control" id="username" type="username" onChange={e => setUsername(e.target.value)} defaultValue={employee.surname}/>
+            </FormGroup>
+            <FormGroup label="Пароль">
+                <input className="form-control" id="password" type="password" onChange={e => setPassword(e.target.value)} defaultValue={employee.surname}/>
+            </FormGroup>
             <button className="btn btn-primary" type="submit" >Сохранить</button>
             <button className="btn btn-danger" onClick={onCancel}>Отменить</button>
         </form>

@@ -6,6 +6,7 @@ import DoctorApi from "../../backend/api/DoctorApi";
 import {UserDataStoreContext} from "../../index";
 import DepartmentApi from "../../backend/api/DepartmentApi";
 import ManagerApi from "../../backend/api/ManagerApi";
+import FormGroup from "../FormGroup";
 
 function EmployeeEditRoute(props) {
     const [employee, setEmployee] = useState({});
@@ -83,12 +84,10 @@ function EmployeeEditRoute(props) {
 
     let specialityComponent = null
     if (searchParams.get('role') == 'doctor') {
-        specialityComponent = <div className="form-group row">
-            <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Специальность</label>
-            <div className="col-sm-10">
+        specialityComponent =
+            <FormGroup label="Специальность">
                 <input className="form-control" id="surname" onChange={e => setSpeciality(e.target.value)} defaultValue={employee.speciality}/>
-            </div>
-        </div>
+            </FormGroup>
     }
 
     let departmentComponents = [
@@ -109,27 +108,18 @@ function EmployeeEditRoute(props) {
 
     return(
         <form onSubmit={handleSubmit}>
-            <div className="form-group row">
-                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Имя</label>
-                <div className="col-sm-10">
-                    <input className="form-control" id="name" onChange={e => setName(e.target.value)} defaultValue={employee.name}/>
-                </div>
-            </div>
-            <div className="form-group row">
-                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Фамилия</label>
-                <div className="col-sm-10">
-                    <input className="form-control" id="surname" onChange={e => setSurname(e.target.value)} defaultValue={employee.surname}/>
-                </div>
-            </div>
+            <FormGroup label="Имя">
+                <input className="form-control" id="name" onChange={e => setName(e.target.value)} defaultValue={employee.name}/>
+            </FormGroup>
+            <FormGroup label="Фамилия">
+                <input className="form-control" id="surname" onChange={e => setSurname(e.target.value)} defaultValue={employee.surname}/>
+            </FormGroup>
             {specialityComponent}
-            <div className="form-group row">
-                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Отделение</label>
-                <div className="col-sm-10">
-                    <select className="form-select" aria-label="Default select example" onChange={e => setDepartmentId(e.target.value)}>
-                        {departmentComponents}
-                    </select>
-                </div>
-            </div>
+            <FormGroup label="Отделение">
+                <select className="form-select" aria-label="Default select example" onChange={e => setDepartmentId(e.target.value)}>
+                    {departmentComponents}
+                </select>
+            </FormGroup>
 
             <button className="btn btn-primary" type="submit" >Сохранить</button>
             <button className="btn btn-danger" onClick={onCancel}>Отменить</button>
