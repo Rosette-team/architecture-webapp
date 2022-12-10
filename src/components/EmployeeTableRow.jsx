@@ -37,13 +37,13 @@ function EmployeeTableRow(props) {
             <td>{props.employee.departmentId}</td>
             <td>{speciality}</td>
             <td>
-                <button type="button" className="btn btn-success" onClick={onEdit}>
+                <button type="button" className="btn btn-success m-1" onClick={onEdit}>
                     <i className="bi bi-pencil-square"/> Данные
                 </button>
-                <button type="button" className="btn btn-warning" onClick={onSchedule}>
+                <button type="button" className="btn btn-warning m-1" onClick={onSchedule}>
                     <i className="bi bi-calendar4-week"/> Расписание
                 </button>
-                <button type="button" className="btn btn-danger" onClick={onDelete}>
+                <button type="button" className="btn btn-danger m-1" onClick={onDelete}>
                     <i className="bi bi-x-square"/> Удалить
                 </button>
             </td>

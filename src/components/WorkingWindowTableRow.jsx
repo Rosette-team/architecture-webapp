@@ -35,10 +35,10 @@ function WorkingWindowTableRow(props) {
             <td>{props.workingWindow.beginTime}</td>
             <td>{props.workingWindow.endTime}</td>
             <td>
-                <button type="button" className="btn btn-success" onClick={onEdit}>
+                <button type="button" className="btn btn-success m-1" onClick={onEdit}>
                     <i className="bi bi-pencil-square"/> Данные
                 </button>
-                <button type="button" className="btn btn-danger" onClick={onDelete}>
+                <button type="button" className="btn btn-danger m-1" onClick={onDelete}>
                     <i className="bi bi-x-square"/> Удалить
                 </button>
             </td>

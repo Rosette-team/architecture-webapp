@@ -114,8 +114,8 @@ function EmployeeCreationRoute(props) {
             <FormGroup label="Пароль">
                 <input className="form-control" id="password" type="password" onChange={e => setPassword(e.target.value)} defaultValue={employee.surname}/>
             </FormGroup>
-            <button className="btn btn-primary" type="submit" >Сохранить</button>
-            <button className="btn btn-danger" onClick={onCancel}>Отменить</button>
+            <button className="btn btn-primary m-1" type="submit" >Сохранить</button>
+            <button className="btn btn-danger m-1" onClick={onCancel}>Отменить</button>
         </form>
     )
 }

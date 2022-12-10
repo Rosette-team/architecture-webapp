@@ -13,7 +13,7 @@ function EmployeeManagementRoute() {
     return(
         <div>
             <NavigationBar/>
-            <button type="button" className="btn btn-primary" onClick={onCreateEmployee}>
+            <button type="button" className="btn btn-primary m-1" onClick={onCreateEmployee}>
                 <i className="bi bi-person-plus"/> Добавить сотрудника
             </button>
             <EmployeeTable/>

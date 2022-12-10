@@ -27,7 +27,7 @@ function LoginRoute() {
                 <div className="form-group mb-3">
                     <input className="form-control" name="password" type="password" placeholder="Пароль" onChange={e => setPassword(e.target.value)}/>
                 </div>
-                <button className="btn btn-primary" type="submit">Войти</button>
+                <button className="btn btn-primary m-1" type="submit">Войти</button>
             </form>
         </div>
     )

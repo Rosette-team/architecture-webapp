@@ -15,7 +15,7 @@ function ScheduleEditRoute() {
     return(
         <div>
             <NavigationBar/>
-            <button type="button" className="btn btn-primary" onClick={onCreateWorkingWindow}>
+            <button type="button" className="btn btn-primary m-1" onClick={onCreateWorkingWindow}>
                 <i className="bi bi-person-plus"/> Добавить рабочее окно
             </button>
             <WorkingWindowTable doctorId={doctorId}/>

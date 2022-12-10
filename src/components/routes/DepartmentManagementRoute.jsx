@@ -13,7 +13,7 @@ function DepartmentManagementRoute() {
     return(
         <div>
             <NavigationBar/>
-            <button type="button" className="btn btn-primary" onClick={onCreateDepartment}>
+            <button type="button" className="btn btn-primary m-1" onClick={onCreateDepartment}>
                 <i className="bi bi-person-plus"/> Добавить отделение
             </button>
             <DepartmentTable/>

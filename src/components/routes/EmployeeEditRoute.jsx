@@ -121,8 +121,8 @@ function EmployeeEditRoute(props) {
                 </select>
             </FormGroup>
 
-            <button className="btn btn-primary" type="submit" >Сохранить</button>
-            <button className="btn btn-danger" onClick={onCancel}>Отменить</button>
+            <button className="btn btn-primary m-1" type="submit" >Сохранить</button>
+            <button className="btn btn-danger m-1" onClick={onCancel}>Отменить</button>
         </form>
     )
 }

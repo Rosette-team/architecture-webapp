@@ -31,8 +31,8 @@ function DepartmentCreationRoute(props) {
             <FormRow label="Название">
                 <input className="form-control" id="name" onChange={e => setName(e.target.value)}/>
             </FormRow>
-            <button className="btn btn-primary" type="submit" >Сохранить</button>
-            <button className="btn btn-danger" onClick={onCancel}>Отменить</button>
+            <button className="btn btn-primary m-1" type="submit" >Сохранить</button>
+            <button className="btn btn-danger m-1" onClick={onCancel}>Отменить</button>
         </form>
     )
 }
