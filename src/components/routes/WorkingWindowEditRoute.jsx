@@ -54,6 +54,10 @@ function WorkingWindowEditRoute() {
         navigate(`/employee/${doctorId}/schedule`)
     }
 
+    function onCancel() {
+        navigate(`/employee/${doctorId}/schedule`)
+    }
+
     return(
         <form onSubmit={onSubmit}>
             <FormRow label="Дата начала">
@@ -72,7 +76,7 @@ function WorkingWindowEditRoute() {
                 <input className="form-control" type="time" id="name" defaultValue={workingWindow.endTime} onChange={e => setEndTime(e.target.value)}/>
             </FormRow>
             <button className="btn btn-primary" type="submit" >Сохранить</button>
-            <button className="btn btn-danger">Отменить</button>
+            <button className="btn btn-danger" onClick={onCancel}>Отменить</button>
         </form>
     )
 }

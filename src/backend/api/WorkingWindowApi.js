@@ -16,4 +16,8 @@ export default class WorkingWindowApi extends ApiClient {
     async updateWorkingWindow(id, workingWindow) {
         this.provideRequest(`http://localhost:8080/working-window/${id}`, 'PUT', workingWindow).then()
     }
+
+    async deleteWorkingWindow(id) {
+        this.provideRequest(`http://localhost:8080/working-window/${id}`, 'DELETE').then()
+    }
 }
