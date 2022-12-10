@@ -13,6 +13,10 @@ export default class WorkingWindowApi extends ApiClient {
         return await this.provideRequest(`http://localhost:8080/working-window?doctorId=${doctorId}`)
     }
 
+    async createWorkingWindow(workingWindow) {
+        this.provideRequest(`http://localhost:8080/working-window`, 'POST', workingWindow).then()
+    }
+
     async updateWorkingWindow(id, workingWindow) {
         this.provideRequest(`http://localhost:8080/working-window/${id}`, 'PUT', workingWindow).then()
     }

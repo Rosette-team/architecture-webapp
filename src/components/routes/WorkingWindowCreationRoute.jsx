@@ -1,12 +1,12 @@
 import {observer} from "mobx-react";
 import FormRow from "../FormRow";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import WorkingWindowApi from "../../backend/api/WorkingWindowApi";
 import {UserDataStoreContext} from "../../index";
 import {useNavigate, useParams} from "react-router";
 import DayOfWeekInput from "../DayOfWeekInput";
 
-function WorkingWindowEditRoute() {
+function WorkingWindowCreationRoute() {
     const [workingWindow, setWorkingWindow] = useState({});
 
     const [beginDate, setBeginDate] = useState(null);
@@ -16,33 +16,27 @@ function WorkingWindowEditRoute() {
     const [endTime, setEndTime] = useState(null);
 
     const {doctorId} = useParams()
-    const {workingWindowId} = useParams()
 
     let workingWindowApi = new WorkingWindowApi(React.useContext(UserDataStoreContext))
 
     let navigate = useNavigate()
 
-    useEffect(() => {
-        workingWindowApi.getWorkingWindow(workingWindowId).then(
-            (value) => {
-                setWorkingWindow(value)
-                setBeginDate(value.beginDate)
-                setEndDate(value.endDate)
-                setDayOfWeek(value.dayOfWeek)
-                setBeginTime(value.beginTime)
-                setEndTime(value.endTime)
-            }
-        )
-    }, []);
-
     function onSubmit(event) {
+        event.preventDefault();
+        if (new Date(beginDate) < new Date()) {
+            return;
+        }
         if (new Date(beginDate) > new Date(endDate)) {
             return
         }
         if (beginTime > endTime) {
             return
         }
-        workingWindowApi.updateWorkingWindow(workingWindowId, {
+        if (beginDate == null || endDate == null || dayOfWeek == null || beginTime == null || endTime == null) {
+            return;
+        }
+
+        workingWindowApi.createWorkingWindow({
             "doctorId": doctorId,
             "beginDate": beginDate,
             "endDate": endDate,
@@ -50,7 +44,6 @@ function WorkingWindowEditRoute() {
             "beginTime": beginTime,
             "endTime": endTime
         }).then()
-        event.preventDefault();
         navigate(`/employee/${doctorId}/schedule`)
     }
 
@@ -81,4 +74,4 @@ function WorkingWindowEditRoute() {
     )
 }
 
-export default observer(WorkingWindowEditRoute)
+export default observer(WorkingWindowCreationRoute)

@@ -1,12 +1,14 @@
 import {observer} from "mobx-react";
 import WorkingWindowTable from "../WorkingWindowTable";
-import {useParams} from "react-router";
+import {useNavigate, useParams} from "react-router";
 
 function ScheduleEditRoute() {
     const {doctorId} = useParams()
 
-    function onCreateWorkingWindow() {
+    let navigate = useNavigate()
 
+    function onCreateWorkingWindow() {
+        navigate(`/employee/${doctorId}/schedule/new`)
     }
 
     return(

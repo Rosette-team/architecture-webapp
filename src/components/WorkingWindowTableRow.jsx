@@ -1,7 +1,6 @@
 import {observer} from "mobx-react";
 import React from "react";
 import {useNavigate} from "react-router";
-import DoctorApi from "../backend/api/DoctorApi";
 import {UserDataStoreContext} from "../index";
 import WorkingWindowApi from "../backend/api/WorkingWindowApi";
 

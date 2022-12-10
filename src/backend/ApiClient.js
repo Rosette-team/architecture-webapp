@@ -7,7 +7,7 @@ export default class ApiClient {
 
     async provideRequest(url, method = 'GET', body = null) {
         let headers = new Headers()
-        headers.append('Authorization', 'Basic ' + btoa('user:user'));
+        headers.append('Authorization', 'Basic ' + btoa(`${this.userDataStore.username}:${this.userDataStore.password}`));
         if (body != null) {
             headers.append('Content-Type', 'application/json')
             let response = await fetch(url,
