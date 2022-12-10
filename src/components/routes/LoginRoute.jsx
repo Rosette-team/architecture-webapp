@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {UserDataStoreContext} from "../../index";
 import {observer} from "mobx-react";
 import {useNavigate} from "react-router";
+import UserApi from "../../backend/api/UserApi";
 
 function LoginRoute() {
     const navigate = useNavigate();
@@ -11,10 +12,22 @@ function LoginRoute() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    const [isWrongCredentials, setIsWrongCredentials] = useState(false);
+
     function handleSubmit(event) {
         userDataStore.setUsername(username)
         userDataStore.setPassword(password)
-        navigate('/employee')
+        let userApi = new UserApi(userDataStore)
+        userApi.login().then(
+            (value) => {
+                if (value != null) {
+                    navigate('/employee')
+                }
+                else {
+                    setIsWrongCredentials(true)
+                }
+            }
+        )
         event.preventDefault();
     }
 
@@ -28,6 +41,11 @@ function LoginRoute() {
                     <input className="form-control" name="password" type="password" placeholder="Пароль" onChange={e => setPassword(e.target.value)}/>
                 </div>
                 <button className="btn btn-primary m-1" type="submit">Войти</button>
+                { isWrongCredentials &&
+                    <p className="text-danger">
+                        Неправильное имя пользователя или пароль
+                    </p>
+                }
             </form>
         </div>
     )
