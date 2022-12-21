@@ -3,11 +3,13 @@ import {useNavigate} from "react-router";
 import React from "react";
 import {UserDataStoreContext} from "../index";
 import DoctorApi from "../backend/api/DoctorApi";
+import ManagerApi from "../backend/api/ManagerApi";
 
 function EmployeeTableRow(props) {
     let navigate = useNavigate()
 
     let doctorApi = new DoctorApi(React.useContext(UserDataStoreContext))
+    let managerApi = new ManagerApi(React.useContext(UserDataStoreContext))
 
     function onEdit() {
         if (props.employee.role == 'ROLE_DOCTOR') {
@@ -22,7 +24,11 @@ function EmployeeTableRow(props) {
     }
 
     function onDelete() {
-        doctorApi.deleteDoctor(props.employee.id)
+        if (props.employee.role == 'ROLE_DOCTOR') {
+            doctorApi.deleteDoctor(props.employee.id)
+        } else {
+            managerApi.deleteManager(props.employee.id)
+        }
     }
 
     let speciality = props.employee.speciality
@@ -40,9 +46,11 @@ function EmployeeTableRow(props) {
                 <button type="button" className="btn btn-success m-1" onClick={onEdit}>
                     <i className="bi bi-pencil-square"/> Данные
                 </button>
+                {props.employee.role == 'ROLE_DOCTOR' &&
                 <button type="button" className="btn btn-warning m-1" onClick={onSchedule}>
                     <i className="bi bi-calendar4-week"/> Расписание
                 </button>
+                }
                 <button type="button" className="btn btn-danger m-1" onClick={onDelete}>
                     <i className="bi bi-x-square"/> Удалить
                 </button>
